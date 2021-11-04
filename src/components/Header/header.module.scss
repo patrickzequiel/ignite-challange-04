@@ -1,1 +1,17 @@
-// TODO
+.container {
+  max-width: 1440px;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 105px;
+    width: 720px;
+    align-items: center;
+
+
+
+  }
+}
