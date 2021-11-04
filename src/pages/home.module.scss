@@ -1,1 +1,99 @@
-// TODO
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.postPreview {
+  max-width: 700px;
+  height: 108px;
+  margin: 5rem auto 0;
+
+  a {
+    display: block;
+
+    & + a {
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+  }
+
+  strong {
+    display: block;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 33.89px;
+    text-align: justify;
+    transition: color 0.2s;
+    color: var(--heading);
+
+    &:hover {
+      color: var(--yellow-500);
+    }
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: normal;
+    margin-top: 8px;
+    line-height: 22px;
+    text-align: justify;
+    color: var(--body);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 24px;
+  }
+
+  time {
+    display: flex;
+    font-size: 1rem;
+    align-items: center;
+    color: var(--info);
+    font-size: 14px;
+
+    .calendar {
+      margin-right: 11px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  p {
+    display: flex;
+    margin-left: 26px;
+    line-height: 1.625rem;
+    color: var(--info);
+    font-size: 14px;
+
+    .user {
+      margin-right: 11px;
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .buttonLoader {
+    display: flex;
+    margin-top: 64px;
+    font-size: 18px;
+    color: var(--hilight);
+    border: none;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .buttonLoader:hover {
+    text-decoration: underline;
+  }
+
+}
