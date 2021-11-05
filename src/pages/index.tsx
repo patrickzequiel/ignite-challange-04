@@ -7,6 +7,8 @@ import Prismic from '@prismicio/client';
 
 import { RichText } from 'prismic-dom';
 import { useState } from 'react';
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
@@ -67,17 +69,23 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
       <Head>
         <title>Home | Space Travelling</title>
       </Head>
-      <main className={styles.container}>
-        <div className={styles.postPreview}>
-          {posts.map(post => (
-            <Link href={`/posts/${post.slug}`}>
-              <a key={post.uid}>
+      {posts.map(post => (
+        <main key={post.slug} className={styles.container}>
+          <div className={styles.postPreview}>
+            <Link href={`/post/${post.slug}`}>
+              <a>
                 <strong>{post.data.title}</strong>
                 <h3>{post.data.subtitle}</h3>
                 <div className={styles.postPreview__info}>
                   <time>
                     <IoCalendarClearOutline className={styles.calendar} />
-                    {post.first_publication_date}
+                    {format(
+                      new Date(post.first_publication_date),
+                      'dd MMM yyyy',
+                      {
+                        locale: ptBR,
+                      }
+                    )}
                   </time>
                   <p>
                     <FiUser className={styles.user} />
@@ -86,57 +94,47 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
                 </div>
               </a>
             </Link>
-          ))}
-
-          {nextPage && (
-            <button
-              className={styles.buttonLoader}
-              onClick={loadMore}
-              type="button"
-            >
-              Carregar mais posts
-            </button>
-          )}
-        </div>
-      </main>
+            {nextPage && (
+              <button
+                className={styles.buttonLoader}
+                onClick={loadMore}
+                type="button"
+              >
+                Carregar mais posts
+              </button>
+            )}
+          </div>
+        </main>
+      ))}
     </>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
+
   const postsResponse = await prismic.query(
-    Prismic.Predicates.at('document.type', 'posts'),
+    [Prismic.Predicates.at('document.type', 'posts')],
     {
-      fetch: ['posts.title', 'posts.author', 'posts.subtitle'],
       pageSize: 1,
     }
   );
 
-  const postsTreated = postsResponse.results.map((post: Post) => {
-    return {
-      slug: post.uid,
-      first_publication_date: new Date(
-        post.first_publication_date
-      ).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      }),
-      data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
-      },
-    };
-  });
+  const { next_page } = postsResponse;
+  const results = postsResponse.results.map(post => ({
+    uid: post.uid,
+    first_publication_date: post.first_publication_date,
+    data: {
+      title: post.data.title,
+      subtitle: post.data.subtitle,
+      author: post.data.author,
+    },
+  }));
 
   const postsPagination = {
-    next_page: postsResponse.next_page,
-    results: postsTreated,
+    next_page,
+    results,
   };
-
-  // console.log(JSON.stringify(postsResponse.results, null, 2));
 
   return {
     props: { postsPagination },

@@ -1,1 +1,37 @@
-// TODO
+strong {
+  display: block;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 33.89px;
+  text-align: justify;
+  transition: color 0.2s;
+  color: var(--heading);
+
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 8px;
+  line-height: 22px;
+  text-align: justify;
+  color: var(--body);
+}
+
+time {
+  display: flex;
+  font-size: 1rem;
+  align-items: center;
+  color: var(--info);
+  font-size: 14px;
+
+}
+
+p {
+  display: flex;
+  margin-left: 26px;
+  line-height: 1.625rem;
+  color: var(--info);
+  font-size: 14px;
+
+}
