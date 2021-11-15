@@ -1,7 +1,7 @@
 # ignite-challange-04
 
-#1 -> yarn install
+## 1 -> yarn install
 
-#2 -> yarn dev
+## 2 -> yarn dev
 
-#it'll open the chrome in http://localhost:3000/
+## it'll open the chrome in http://localhost:3000/
